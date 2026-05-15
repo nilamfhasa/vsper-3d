@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VSEPR 3D Explorer - Visualizer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/home.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+  <nav class="main-nav">
+    <a href="index.html" class="nav-logo">VSEPR<span>3D</span></a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link active">Home</a>
+      <a href="game/index.html" class="nav-link">Game</a>
+      <a href="quiz/index.html" class="nav-link">Quiz</a>
+      <a href="about/index.html" class="nav-link">About</a>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION (CLEAN - NO ANIMATION) -->
+  <section class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <div class="hero-label">Interactive Chemical Explorer</div>
+      <h1 class="hero-title">Visualisasi <span>VSEPR</span> 3D</h1>
+      <p class="hero-sub">Jelajahi struktur molekul dan geometri elektron secara interaktif.</p>
+    </div>
+  </section>
+
+  <main>
+    <!-- 1. VISUALIZER PANEL (ONLY PLACE FOR 3D) -->
+    <div class="main-panel">
+      <!-- Left: Formula Info -->
+      <aside class="side-panel">
+        <div class="section-label">Active Molecule</div>
+        <div class="active-mol-display">
+          <div id="activeMolFormula">H2O</div>
+          <div id="activeMolName">Air</div>
+        </div>
+        <div class="info-geo" style="margin-top: 20px;">
+          <div class="info-geo-name" id="geoName">Bengkok (Bent)</div>
+          <div class="info-geo-axe" id="geoAxe">AX2E2</div>
+        </div>
+      </aside>
+
+      <!-- Center: 3D Visualization -->
+      <section class="viewer-section">
+        <div class="viewer-bg-grid"></div>
+        <div id="viewerCanvas" style="width: 100%; height: 500px;"></div>
+        <div class="viewer-hint">DRAG TO ROTATE • 2 FINGERS TO ZOOM</div>
+      </section>
+
+      <!-- Right: Detailed Explanation -->
+      <aside class="info-section">
+        <div class="section-label">Explanation & Stats</div>
+        <div class="info-stats">
+          <div class="stat-box"><div class="stat-val" id="statPEI">2</div><div class="stat-lbl">PEI</div></div>
+          <div class="stat-box"><div class="stat-val" id="statPEB">2</div><div class="stat-lbl">PEB</div></div>
+        </div>
+        <div class="info-angles" id="infoAngles" style="margin-top: 15px;"></div>
+        <div class="info-desc" id="infoDesc">
+          Pilih molekul dari katalog di bawah atau buat sendiri menggunakan tabel periodik untuk melihat detail geometrinya.
+        </div>
+      </aside>
+    </div>
+
+    <!-- 2. SELECTOR SECTION (KATALOG & COMPLETE BUILDER) -->
+    <div class="selector-section">
+      <div class="tab-toggle">
+        <button id="btnKatalog" class="tab-btn active">Katalog Molekul</button>
+        <button id="btnPeriodik" class="tab-btn">Tabel Periodik (Builder)</button>
+      </div>
+
+      <!-- Katalog Content -->
+      <div id="molGrid" class="mol-grid">
+        <!-- JS Injected Cards -->
+      </div>
+
+      <!-- Builder Content -->
+      <div id="periodikBuilder" class="builder-container hidden">
+        <div class="periodic-table-wrapper">
+          <div class="periodic-table-title">Tabel Periodik Unsur Lengkap</div>
+          <div class="periodic-table" id="ptGrid">
+            <!-- ROW 1 -->
+            <div class="pt-element nonmetal" data-symbol="H" style="grid-column: 1; grid-row: 1;"><span class="pt-number">1</span><span class="pt-symbol">H</span><span class="pt-name">Hydrogen</span></div>
+            <div class="pt-element noble-gas" data-symbol="He" style="grid-column: 18; grid-row: 1;"><span class="pt-number">2</span><span class="pt-symbol">He</span><span class="pt-name">Helium</span></div>
+            
+            <!-- ROW 2 -->
+            <div class="pt-element alkali-metal" data-symbol="Li" style="grid-column: 1; grid-row: 2;"><span class="pt-number">3</span><span class="pt-symbol">Li</span><span class="pt-name">Lithium</span></div>
+            <div class="pt-element alkaline-earth" data-symbol="Be" style="grid-column: 2; grid-row: 2;"><span class="pt-number">4</span><span class="pt-symbol">Be</span><span class="pt-name">Beryllium</span></div>
+            <div class="pt-element metalloid" data-symbol="B" style="grid-column: 13; grid-row: 2;"><span class="pt-number">5</span><span class="pt-symbol">B</span><span class="pt-name">Boron</span></div>
+            <div class="pt-element nonmetal" data-symbol="C" style="grid-column: 14; grid-row: 2;"><span class="pt-number">6</span><span class="pt-symbol">C</span><span class="pt-name">Carbon</span></div>
+            <div class="pt-element nonmetal" data-symbol="N" style="grid-column: 15; grid-row: 2;"><span class="pt-number">7</span><span class="pt-symbol">N</span><span class="pt-name">Nitrogen</span></div>
+            <div class="pt-element nonmetal" data-symbol="O" style="grid-column: 16; grid-row: 2;"><span class="pt-number">8</span><span class="pt-symbol">O</span><span class="pt-name">Oxygen</span></div>
+            <div class="pt-element halogen" data-symbol="F" style="grid-column: 17; grid-row: 2;"><span class="pt-number">9</span><span class="pt-symbol">F</span><span class="pt-name">Fluorine</span></div>
+            <div class="pt-element noble-gas" data-symbol="Ne" style="grid-column: 18; grid-row: 2;"><span class="pt-number">10</span><span class="pt-symbol">Ne</span><span class="pt-name">Neon</span></div>
+
+            <!-- ROW 3 -->
+            <div class="pt-element alkali-metal" data-symbol="Na" style="grid-column: 1; grid-row: 3;"><span class="pt-number">11</span><span class="pt-symbol">Na</span><span class="pt-name">Sodium</span></div>
+            <div class="pt-element alkaline-earth" data-symbol="Mg" style="grid-column: 2; grid-row: 3;"><span class="pt-number">12</span><span class="pt-symbol">Mg</span><span class="pt-name">Magnesium</span></div>
+            <div class="pt-element post-transition" data-symbol="Al" style="grid-column: 13; grid-row: 3;"><span class="pt-number">13</span><span class="pt-symbol">Al</span><span class="pt-name">Aluminium</span></div>
+            <div class="pt-element metalloid" data-symbol="Si" style="grid-column: 14; grid-row: 3;"><span class="pt-number">14</span><span class="pt-symbol">Si</span><span class="pt-name">Silicon</span></div>
+            <div class="pt-element nonmetal" data-symbol="P" style="grid-column: 15; grid-row: 3;"><span class="pt-number">15</span><span class="pt-symbol">P</span><span class="pt-name">Phosphorus</span></div>
+            <div class="pt-element nonmetal" data-symbol="S" style="grid-column: 16; grid-row: 3;"><span class="pt-number">16</span><span class="pt-symbol">S</span><span class="pt-name">Sulfur</span></div>
+            <div class="pt-element halogen" data-symbol="Cl" style="grid-column: 17; grid-row: 3;"><span class="pt-number">17</span><span class="pt-symbol">Cl</span><span class="pt-name">Chlorine</span></div>
+            <div class="pt-element noble-gas" data-symbol="Ar" style="grid-column: 18; grid-row: 3;"><span class="pt-number">18</span><span class="pt-symbol">Ar</span><span class="pt-name">Argon</span></div>
+
+            <!-- ROW 4 -->
+            <div class="pt-element alkali-metal" data-symbol="K" style="grid-column: 1; grid-row: 4;"><span class="pt-number">19</span><span class="pt-symbol">K</span><span class="pt-name">Potassium</span></div>
+            <div class="pt-element alkaline-earth" data-symbol="Ca" style="grid-column: 2; grid-row: 4;"><span class="pt-number">20</span><span class="pt-symbol">Ca</span><span class="pt-name">Calcium</span></div>
+            <div class="pt-element transition-metal" data-symbol="Sc" style="grid-column: 3; grid-row: 4;"><span class="pt-number">21</span><span class="pt-symbol">Sc</span><span class="pt-name">Scandium</span></div>
+            <div class="pt-element transition-metal" data-symbol="Ti" style="grid-column: 4; grid-row: 4;"><span class="pt-number">22</span><span class="pt-symbol">Ti</span><span class="pt-name">Titanium</span></div>
+            <div class="pt-element transition-metal" data-symbol="V" style="grid-column: 5; grid-row: 4;"><span class="pt-number">23</span><span class="pt-symbol">V</span><span class="pt-name">Vanadium</span></div>
+            <div class="pt-element transition-metal" data-symbol="Cr" style="grid-column: 6; grid-row: 4;"><span class="pt-number">24</span><span class="pt-symbol">Cr</span><span class="pt-name">Chromium</span></div>
+            <div class="pt-element transition-metal" data-symbol="Mn" style="grid-column: 7; grid-row: 4;"><span class="pt-number">25</span><span class="pt-symbol">Mn</span><span class="pt-name">Manganese</span></div>
+            <div class="pt-element transition-metal" data-symbol="Fe" style="grid-column: 8; grid-row: 4;"><span class="pt-number">26</span><span class="pt-symbol">Fe</span><span class="pt-name">Iron</span></div>
+            <div class="pt-element transition-metal" data-symbol="Co" style="grid-column: 9; grid-row: 4;"><span class="pt-number">27</span><span class="pt-symbol">Co</span><span class="pt-name">Cobalt</span></div>
+            <div class="pt-element transition-metal" data-symbol="Ni" style="grid-column: 10; grid-row: 4;"><span class="pt-number">28</span><span class="pt-symbol">Ni</span><span class="pt-name">Nickel</span></div>
+            <div class="pt-element transition-metal" data-symbol="Cu" style="grid-column: 11; grid-row: 4;"><span class="pt-number">29</span><span class="pt-symbol">Cu</span><span class="pt-name">Copper</span></div>
+            <div class="pt-element transition-metal" data-symbol="Zn" style="grid-column: 12; grid-row: 4;"><span class="pt-number">30</span><span class="pt-symbol">Zn</span><span class="pt-name">Zinc</span></div>
+            <div class="pt-element post-transition" data-symbol="Ga" style="grid-column: 13; grid-row: 4;"><span class="pt-number">31</span><span class="pt-symbol">Ga</span><span class="pt-name">Gallium</span></div>
+            <div class="pt-element metalloid" data-symbol="Ge" style="grid-column: 14; grid-row: 4;"><span class="pt-number">32</span><span class="pt-symbol">Ge</span><span class="pt-name">Germanium</span></div>
+            <div class="pt-element metalloid" data-symbol="As" style="grid-column: 15; grid-row: 4;"><span class="pt-number">33</span><span class="pt-symbol">As</span><span class="pt-name">Arsenic</span></div>
+            <div class="pt-element nonmetal" data-symbol="Se" style="grid-column: 16; grid-row: 4;"><span class="pt-number">34</span><span class="pt-symbol">Se</span><span class="pt-name">Selenium</span></div>
+            <div class="pt-element halogen" data-symbol="Br" style="grid-column: 17; grid-row: 4;"><span class="pt-number">35</span><span class="pt-symbol">Br</span><span class="pt-name">Bromine</span></div>
+            <div class="pt-element noble-gas" data-symbol="Kr" style="grid-column: 18; grid-row: 4;"><span class="pt-number">36</span><span class="pt-symbol">Kr</span><span class="pt-name">Krypton</span></div>
+
+            <!-- ROW 5 -->
+            <div class="pt-element alkali-metal" data-symbol="Rb" style="grid-column: 1; grid-row: 5;"><span class="pt-number">37</span><span class="pt-symbol">Rb</span><span class="pt-name">Rubidium</span></div>
+            <div class="pt-element alkaline-earth" data-symbol="Sr" style="grid-column: 2; grid-row: 5;"><span class="pt-number">38</span><span class="pt-symbol">Sr</span><span class="pt-name">Strontium</span></div>
+            <div class="pt-element transition-metal" data-symbol="Y" style="grid-column: 3; grid-row: 5;"><span class="pt-number">39</span><span class="pt-symbol">Y</span><span class="pt-name">Yttrium</span></div>
+            <div class="pt-element transition-metal" data-symbol="Zr" style="grid-column: 4; grid-row: 5;"><span class="pt-number">40</span><span class="pt-symbol">Zr</span><span class="pt-name">Zirconium</span></div>
+            <div class="pt-element transition-metal" data-symbol="Nb" style="grid-column: 5; grid-row: 5;"><span class="pt-number">41</span><span class="pt-symbol">Nb</span><span class="pt-name">Niobium</span></div>
+            <div class="pt-element transition-metal" data-symbol="Mo" style="grid-column: 6; grid-row: 5;"><span class="pt-number">42</span><span class="pt-symbol">Mo</span><span class="pt-name">Molybdenum</span></div>
+            <div class="pt-element transition-metal" data-symbol="Tc" style="grid-column: 7; grid-row: 5;"><span class="pt-number">43</span><span class="pt-symbol">Tc</span><span class="pt-name">Technetium</span></div>
+            <div class="pt-element transition-metal" data-symbol="Ru" style="grid-column: 8; grid-row: 5;"><span class="pt-number">44</span><span class="pt-symbol">Ru</span><span class="pt-name">Ruthenium</span></div>
+            <div class="pt-element transition-metal" data-symbol="Rh" style="grid-column: 9; grid-row: 5;"><span class="pt-number">45</span><span class="pt-symbol">Rh</span><span class="pt-name">Rhodium</span></div>
+            <div class="pt-element transition-metal" data-symbol="Pd" style="grid-column: 10; grid-row: 5;"><span class="pt-number">46</span><span class="pt-symbol">Pd</span><span class="pt-name">Palladium</span></div>
+            <div class="pt-element transition-metal" data-symbol="Ag" style="grid-column: 11; grid-row: 5;"><span class="pt-number">47</span><span class="pt-symbol">Ag</span><span class="pt-name">Silver</span></div>
+            <div class="pt-element transition-metal" data-symbol="Cd" style="grid-column: 12; grid-row: 5;"><span class="pt-number">48</span><span class="pt-symbol">Cd</span><span class="pt-name">Cadmium</span></div>
+            <div class="pt-element post-transition" data-symbol="In" style="grid-column: 13; grid-row: 5;"><span class="pt-number">49</span><span class="pt-symbol">In</span><span class="pt-name">Indium</span></div>
+            <div class="pt-element post-transition" data-symbol="Sn" style="grid-column: 14; grid-row: 5;"><span class="pt-number">50</span><span class="pt-symbol">Sn</span><span class="pt-name">Tin</span></div>
+            <div class="pt-element metalloid" data-symbol="Sb" style="grid-column: 15; grid-row: 5;"><span class="pt-number">51</span><span class="pt-symbol">Sb</span><span class="pt-name">Antimony</span></div>
+            <div class="pt-element metalloid" data-symbol="Te" style="grid-column: 16; grid-row: 5;"><span class="pt-number">52</span><span class="pt-symbol">Te</span><span class="pt-name">Tellurium</span></div>
+            <div class="pt-element halogen" data-symbol="I" style="grid-column: 17; grid-row: 5;"><span class="pt-number">53</span><span class="pt-symbol">I</span><span class="pt-name">Iodine</span></div>
+            <div class="pt-element noble-gas" data-symbol="Xe" style="grid-column: 18; grid-row: 5;"><span class="pt-number">54</span><span class="pt-symbol">Xe</span><span class="pt-name">Xenon</span></div>
+
+            <!-- ROW 6 -->
+            <div class="pt-element alkali-metal" data-symbol="Cs" style="grid-column: 1; grid-row: 6;"><span class="pt-number">55</span><span class="pt-symbol">Cs</span><span class="pt-name">Caesium</span></div>
+            <div class="pt-element alkaline-earth" data-symbol="Ba" style="grid-column: 2; grid-row: 6;"><span class="pt-number">56</span><span class="pt-symbol">Ba</span><span class="pt-name">Barium</span></div>
+            <div class="pt-element transition-metal" data-symbol="Hf" style="grid-column: 4; grid-row: 6;"><span class="pt-number">72</span><span class="pt-symbol">Hf</span><span class="pt-name">Hafnium</span></div>
+            <div class="pt-element transition-metal" data-symbol="Ta" style="grid-column: 5; grid-row: 6;"><span class="pt-number">73</span><span class="pt-symbol">Ta</span><span class="pt-name">Tantalum</span></div>
+            <div class="pt-element transition-metal" data-symbol="W" style="grid-column: 6; grid-row: 6;"><span class="pt-number">74</span><span class="pt-symbol">W</span><span class="pt-name">Tungsten</span></div>
+            <div class="pt-element transition-metal" data-symbol="Re" style="grid-column: 7; grid-row: 6;"><span class="pt-number">75</span><span class="pt-symbol">Re</span><span class="pt-name">Rhenium</span></div>
+            <div class="pt-element transition-metal" data-symbol="Os" style="grid-column: 8; grid-row: 6;"><span class="pt-number">76</span><span class="pt-symbol">Os</span><span class="pt-name">Osmium</span></div>
+            <div class="pt-element transition-metal" data-symbol="Ir" style="grid-column: 9; grid-row: 6;"><span class="pt-number">77</span><span class="pt-symbol">Ir</span><span class="pt-name">Iridium</span></div>
+            <div class="pt-element transition-metal" data-symbol="Pt" style="grid-column: 10; grid-row: 6;"><span class="pt-number">78</span><span class="pt-symbol">Pt</span><span class="pt-name">Platinum</span></div>
+            <div class="pt-element transition-metal" data-symbol="Au" style="grid-column: 11; grid-row: 6;"><span class="pt-number">79</span><span class="pt-symbol">Au</span><span class="pt-name">Gold</span></div>
+            <div class="pt-element transition-metal" data-symbol="Hg" style="grid-column: 12; grid-row: 6;"><span class="pt-number">80</span><span class="pt-symbol">Hg</span><span class="pt-name">Mercury</span></div>
+            <div class="pt-element post-transition" data-symbol="Tl" style="grid-column: 13; grid-row: 6;"><span class="pt-number">81</span><span class="pt-symbol">Tl</span><span class="pt-name">Thallium</span></div>
+            <div class="pt-element post-transition" data-symbol="Pb" style="grid-column: 14; grid-row: 6;"><span class="pt-number">82</span><span class="pt-symbol">Pb</span><span class="pt-name">Lead</span></div>
+            <div class="pt-element post-transition" data-symbol="Bi" style="grid-column: 15; grid-row: 6;"><span class="pt-number">83</span><span class="pt-symbol">Bi</span><span class="pt-name">Bismuth</span></div>
+            <div class="pt-element metalloid" data-symbol="Po" style="grid-column: 16; grid-row: 6;"><span class="pt-number">84</span><span class="pt-symbol">Po</span><span class="pt-name">Polonium</span></div>
+            <div class="pt-element halogen" data-symbol="At" style="grid-column: 17; grid-row: 6;"><span class="pt-number">85</span><span class="pt-symbol">At</span><span class="pt-name">Astatine</span></div>
+            <div class="pt-element noble-gas" data-symbol="Rn" style="grid-column: 18; grid-row: 6;"><span class="pt-number">86</span><span class="pt-symbol">Rn</span><span class="pt-name">Radon</span></div>
+
+            <!-- ROW 7 -->
+            <div class="pt-element alkali-metal" data-symbol="Fr" style="grid-column: 1; grid-row: 7;"><span class="pt-number">87</span><span class="pt-symbol">Fr</span><span class="pt-name">Francium</span></div>
+            <div class="pt-element alkaline-earth" data-symbol="Ra" style="grid-column: 2; grid-row: 7;"><span class="pt-number">88</span><span class="pt-symbol">Ra</span><span class="pt-name">Radium</span></div>
+          </div>
+        </div>
+
+        <div class="formula-section">
+          <div class="formula-label">Current Formula Builder</div>
+          <div id="formulaDisplay"></div>
+          <div class="formula-actions">
+            <button id="btnClear" class="formula-btn clear-btn">Clear Formula</button>
+            <button id="btnRender" class="formula-btn render-btn">Render Molecule</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="toastOverlay" class="toast-overlay">
+    <div class="toast-box">
+      <div class="toast-icon">✓</div>
+      <div class="toast-msg">Success!</div>
+    </div>
+  </div>
+
+  <script src="js/shared/chemistry.js"></script>
+  <script src="js/shared/engine3d.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+/* ============================================================
+   HOME CSS - Visualizer & Builder Specific Styles
+   ============================================================ */
+
+/* HERO */
+.hero {
+  position: relative;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+}
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(0,229,204,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,204,0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+.hero-content { position: relative; z-index: 2; text-align: center; }
+.hero-label { font-family: var(--mono); font-size: 10px; color: var(--cyan); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 12px; opacity: 0.7; }
+.hero-title { font-size: 42px; font-weight: 700; color: var(--text); line-height: 1.1; margin-bottom: 10px; }
+.hero-title span { color: var(--cyan); text-shadow: 0 0 20px var(--cyan-glow); }
+.hero-sub { font-size: 14px; color: var(--text2); font-weight: 300; max-width: 600px; margin: 0 auto; }
+
+/* MAIN VISUAL PANEL (3 COLUMNS) */
+.main-panel {
+  display: grid;
+  grid-template-columns: 260px 1fr 300px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  min-height: 500px;
+}
+
+.side-panel {
+  background: var(--bg2);
+  border-right: 1px solid var(--border);
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.active-mol-display {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 16px;
+  padding: 30px 20px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+#activeMolFormula { font-family: var(--mono); font-size: 40px; font-weight: 700; color: var(--cyan); text-shadow: 0 0 15px var(--cyan-glow); }
+#activeMolName { font-size: 16px; color: var(--text2); margin-top: 5px; }
+
+.viewer-section {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, #101a2b 0%, var(--bg) 100%);
+}
+.viewer-bg-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(0,229,204,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,204,0.02) 1px, transparent 1px); background-size: 40px 40px; }
+#viewerCanvas { width: 100%; height: 500px; cursor: grab; display: block; }
+.viewer-hint { position: absolute; bottom: 20px; font-family: var(--mono); font-size: 10px; color: var(--text3); background: rgba(8,12,20,0.7); padding: 6px 16px; border-radius: 30px; backdrop-filter: blur(5px); border: 1px solid var(--border); }
+
+.info-section {
+  background: var(--bg2);
+  border-left: 1px solid var(--border);
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.info-geo { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+.info-geo-name { font-size: 18px; font-weight: 700; color: var(--cyan); margin-bottom: 4px; }
+.info-geo-axe { font-family: var(--mono); font-size: 12px; color: var(--text2); opacity: 0.8; }
+
+.info-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.stat-box { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px; text-align: center; transition: all 0.3s; }
+.stat-box:hover { border-color: var(--cyan); background: var(--surface2); }
+.stat-val { font-family: var(--mono); font-size: 24px; font-weight: 700; color: var(--cyan); line-height: 1; margin-bottom: 4px; }
+.stat-lbl { font-size: 10px; color: var(--text2); text-transform: uppercase; letter-spacing: 1px; }
+
+.info-desc { font-size: 13px; color: var(--text2); line-height: 1.6; background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--cyan); padding: 16px; border-radius: 12px; }
+
+/* SELECTOR SECTION (BOTTOM) */
+.selector-section { padding: 40px 40px 60px; background: var(--bg); }
+.tab-toggle { display: flex; gap: 10px; margin-bottom: 30px; justify-content: center; }
+.tab-btn {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 24px;
+  cursor: pointer; font-family: var(--mono); font-size: 13px; font-weight: 700; color: var(--text3);
+  text-transform: uppercase; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-width: 220px;
+}
+.tab-btn:hover { border-color: var(--cyan2); color: var(--text2); }
+.tab-btn.active { background: var(--cyan-dim); border-color: var(--cyan); color: var(--cyan); box-shadow: 0 0 20px var(--cyan-glow); transform: translateY(-2px); }
+
+/* KATALOG */
+.mol-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
+.mol-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px 15px;
+  cursor: pointer; transition: all 0.3s; text-align: center;
+}
+.mol-card:hover { border-color: var(--cyan); background: var(--surface2); transform: translateY(-3px); }
+.mol-card.active { border-color: var(--cyan); background: var(--cyan-dim); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+
+/* PERIODIC TABLE (PREMIUM LOOK) */
+.periodic-table-wrapper { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 25px; overflow-x: auto; margin-bottom: 25px; box-shadow: inset 0 0 30px rgba(0,0,0,0.2); }
+.periodic-table-title { font-family: var(--mono); font-size: 11px; color: var(--text3); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px; text-align: center; }
+.periodic-table { display: grid; grid-template-columns: repeat(18, 1fr); gap: 8px; min-width: 900px; padding: 10px; }
+
+.pt-element {
+  background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 5px;
+  cursor: pointer; text-align: center; transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); min-height: 70px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.pt-element:hover { border-color: var(--cyan); background: var(--cyan-dim); box-shadow: 0 0 15px var(--cyan-glow); transform: scale(1.15) translateY(-5px); z-index: 10; }
+.pt-element .pt-number { font-size: 8px; color: var(--text3); position: absolute; top: 4px; left: 5px; font-weight: 700; }
+.pt-element .pt-symbol { font-family: var(--mono); font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+.pt-element .pt-name { font-size: 7px; color: var(--text3); font-weight: 400; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* Categories */
+.pt-element.nonmetal { border-top: 3px solid var(--cyan); }
+.pt-element.noble-gas { border-top: 3px solid #9b59b6; }
+.pt-element.alkali-metal { border-top: 3px solid #e74c3c; }
+.pt-element.alkaline-earth { border-top: 3px solid #e67e22; }
+.pt-element.metalloid { border-top: 3px solid #1abc9c; }
+.pt-element.halogen { border-top: 3px solid #f1c40f; }
+.pt-element.post-transition { border-top: 3px solid #2ecc71; }
+
+/* FORMULA BUILDER UI */
+.formula-section { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 25px; display: flex; flex-direction: column; align-items: center; }
+.formula-label { font-family: var(--mono); font-size: 11px; color: var(--text3); text-transform: uppercase; margin-bottom: 12px; letter-spacing: 2px; }
+#formulaDisplay {
+  background: var(--bg); border: 1px solid var(--border2); border-radius: 12px; padding: 20px 40px;
+  font-family: var(--mono); font-size: 32px; font-weight: 700; color: var(--cyan); text-align: center;
+  min-height: 80px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;
+  text-shadow: 0 0 20px var(--cyan-glow); width: 100%; max-width: 600px;
+}
+
+@media (max-width: 1200px) {
+  .main-panel { grid-template-columns: 240px 1fr; }
+  .info-section { grid-column: 1 / -1; border-left: none; border-top: 1px solid var(--border); display: grid; grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .main-panel { grid-template-columns: 1fr; }
+  #viewerCanvas { height: 350px; }
+  .info-section { grid-template-columns: 1fr; }
+}

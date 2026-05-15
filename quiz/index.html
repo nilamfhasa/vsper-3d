@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VSEPR 3D Explorer - Quiz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="quiz.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="main-nav">
+    <a href="../index.html" class="nav-logo">VSEPR<span>3D</span></a>
+    <div class="nav-links">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../game/index.html" class="nav-link">Game</a>
+      <a href="index.html" class="nav-link active">Quiz</a>
+      <a href="../about/index.html" class="nav-link">About</a>
+    </div>
+  </nav>
+
+  <div class="quiz-progress-bar">
+    <div id="quizProgressFill"></div>
+  </div>
+
+  <main class="quiz-container">
+    <!-- Intro Screen -->
+    <div id="quizIntro" class="quiz-card active">
+      <div class="card-badge">CHALLENGE</div>
+      <h1>Kuis VSEPR 3D</h1>
+      <p>Uji kemampuanmu dalam menentukan geometri molekul secara interaktif.</p>
+      
+      <div class="input-group">
+        <label for="userName">Siapa namamu?</label>
+        <input type="text" id="userName" placeholder="Ketik nama di sini...">
+      </div>
+      
+      <button id="btnBeginQuiz" class="action-btn">MULAI KUIS</button>
+    </div>
+
+    <!-- Centered Question Area -->
+    <div id="quizQuestionArea" class="quiz-card main-quiz-card hidden">
+      <div class="question-header">
+        <span id="questionCounter">Soal 1/15</span>
+        <h2 id="quizQuestionText">Pertanyaan memuat...</h2>
+      </div>
+
+      <!-- Centered 3D Viewer -->
+      <div class="quiz-viewer-container">
+        <div id="quizViewer"></div>
+        <div class="viewer-hint">Gunakan Mouse/Touch untuk rotasi 3D</div>
+      </div>
+      
+      <div id="quizOptions" class="options-grid">
+        <!-- Options injected via JS -->
+      </div>
+    </div>
+
+    <!-- Result Screen -->
+    <div id="quizResult" class="quiz-card result-card hidden">
+      <div class="result-icon">🏆</div>
+      <h2 id="resultTitle">Kuis Selesai!</h2>
+      <div class="result-stats">
+        <div class="stat-item">
+          <span class="label">Skor</span>
+          <span id="finalScore" class="value">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="label">Benar</span>
+          <span id="correctCount" class="value">0/0</span>
+        </div>
+      </div>
+      <p id="resultMsg"></p>
+      <button onclick="location.reload()" class="action-btn">COBA LAGI</button>
+    </div>
+  </main>
+
+  <script src="../js/shared/chemistry.js"></script>
+  <script src="../js/shared/engine3d.js"></script>
+  <script src="quiz.js"></script>
+</body>
+</html>

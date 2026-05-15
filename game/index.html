@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Molecule Mayhem - Platformer Kimia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="game.css">
+</head>
+<body>
+
+  <nav class="main-nav">
+    <a href="../index.html" class="nav-logo">VSEPR<span>3D</span></a>
+    <div class="nav-links">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="index.html" class="nav-link active">Game</a>
+      <a href="../quiz/index.html" class="nav-link">Quiz</a>
+      <a href="../about/index.html" class="nav-link">About</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="game-container" id="gameContainer">
+      <!-- Top HUD -->
+      <div class="game-ui">
+        <div class="ui-left">
+          <div class="game-stat">LEVEL <span id="gameLevel">1</span></div>
+          <div class="game-stat" id="hpDisplay">❤️ ❤️ ❤️</div>
+        </div>
+        
+        <div class="ui-center">
+          <div class="molecule-badge" id="activeMoleculeDisplay">None</div>
+        </div>
+
+        <div class="ui-right">
+          <div class="game-stat">ATOMS: <span id="atomCount">0</span></div>
+          <button id="btnFullscreen" class="fs-btn">⛶</button>
+        </div>
+      </div>
+
+      <!-- Inventory Slots for Swap System -->
+      <div class="inventory-bar">
+        <div class="inv-slot active" id="slot1">Empty</div>
+        <div class="inv-slot" id="slot2">Empty</div>
+        <div class="inv-hint">Press [C] to Swap</div>
+      </div>
+
+      <canvas id="gameCanvas"></canvas>
+
+      <!-- Overlay Screens -->
+      <div id="gameOverlay" class="game-overlay">
+        <div class="overlay-content">
+          <h2 id="overlayTitle">Paused</h2>
+          <p id="overlayMsg">Press Start to Begin</p>
+          <button id="btnAction" class="overlay-btn">START</button>
+        </div>
+      </div>
+
+      <div class="game-controls">
+        <div class="control-hints">
+          <span><b>A/D</b> Gerak</span>
+          <span><b>W/Space</b> Lompat</span>
+          <span><b>S</b> Runduk</span>
+          <span><b>E</b> Power</span>
+          <span><b>C</b> Switch</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="toastOverlay" class="toast-overlay">
+    <div class="toast-box">
+      <div class="toast-msg">Reaksi Dimulai!</div>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
